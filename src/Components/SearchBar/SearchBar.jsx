@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header } from './SearchBarStyles';
 import SearchIcon from '@mui/icons-material/Search';
 import { Paper, IconButton, InputBase } from '@mui/material';
+import PropTypes from 'prop-types';
 
 export default class SearchBar extends Component {
 	state = {
@@ -43,3 +44,7 @@ export default class SearchBar extends Component {
 		);
 	}
 }
+
+SearchBar.propTypes = {
+	imageName: PropTypes.string,
+};

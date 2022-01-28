@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ImageItem, Image, ImageLarge } from './ImageGalleryItem.styled';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 const modalStyles = {
 	content: {
@@ -50,3 +51,8 @@ export default class ImageGalleryItem extends Component {
 		);
 	}
 }
+
+ImageGalleryItem.propTypes = {
+	imageSmall: PropTypes.string,
+	imageLarge: PropTypes.string,
+};

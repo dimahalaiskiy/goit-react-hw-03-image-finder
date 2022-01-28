@@ -3,8 +3,8 @@ import { ImageList } from './ImageGallery.styled';
 import imageAPI from '../../Service/getData';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import LoadMoreButton from '../Button/LoadMoreButton';
-import { Grid } from 'react-loader-spinner';
-import { Stack } from '@mui/material';
+import Loader from '../Loader/Loader';
+import PropTypes from 'prop-types';
 
 export default class ImageGallery extends Component {
 	state = {
@@ -57,7 +57,6 @@ export default class ImageGallery extends Component {
 				});
 			})
 			.finally(() => {
-				console.log(this.galleryRef);
 				this.setState({
 					isLoading: false,
 				});
@@ -84,22 +83,7 @@ export default class ImageGallery extends Component {
 							);
 						})}
 				</ImageList>
-				{this.state.isLoading && (
-					<Stack direction='row' justifyContent='center' alignItems='center' spacing={0}>
-						<Grid
-							sx={{
-								marginBottom: '20px',
-								left: '50%',
-								transform: 'translateX(-50%)',
-							}}
-							heigth='100'
-							width='100'
-							color='orange'
-							ariaLabel='loading'
-						/>
-					</Stack>
-				)}
-
+				{this.state.isLoading && <Loader />}
 				{this.state.images.length !== 0 && (
 					<LoadMoreButton onClick={this.onClickLoadMoreButtton}></LoadMoreButton>
 				)}
@@ -107,3 +91,9 @@ export default class ImageGallery extends Component {
 		);
 	}
 }
+
+ImageGallery.propTypes = {
+	images: PropTypes.array,
+	pageNumber: PropTypes.number,
+	isLoading: PropTypes.bool,
+};
