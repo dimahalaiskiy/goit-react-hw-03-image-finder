@@ -5,6 +5,8 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import LoadMoreButton from '../Button/LoadMoreButton';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class ImageGallery extends Component {
 	state = {
@@ -27,6 +29,11 @@ export default class ImageGallery extends Component {
 			imageAPI
 				.getImages(currentImage)
 				.then((images) => {
+					if (images.hits.length === 0) {
+						console.log('notification');
+						toast('No photos with this word!');
+					}
+					console.log(images.hits.length);
 					this.setState({
 						images: images.hits,
 					});
@@ -71,6 +78,7 @@ export default class ImageGallery extends Component {
 		const { images } = this.state;
 		return (
 			<>
+				<ToastContainer />
 				<ImageList ref={this.galleryRef}>
 					{images &&
 						images.map((image) => {
