@@ -5,7 +5,7 @@ import LoadMoreButton from '../Button/LoadMoreButton';
 import Loader from '../Loader/Loader';
 import PropTypes from 'prop-types';
 
-const ImageGallery = ({ images, onClickMoreBtn, isLoading }) => {
+const ImageGallery = ({ images, onClickMoreBtn, isLoading, modal }) => {
 	return (
 		<>
 			<ImageList>
@@ -16,6 +16,7 @@ const ImageGallery = ({ images, onClickMoreBtn, isLoading }) => {
 								key={index}
 								imageSmall={image.webformatURL}
 								imageLarge={image.largeImageURL}
+								modal={modal}
 							/>
 						);
 					})}

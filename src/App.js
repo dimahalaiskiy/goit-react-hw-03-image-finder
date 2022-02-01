@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import SearchBar from './Components/SearchBar/SearchBar';
 import ImageGallery from './Components/ImageGallery/ImageGallery';
+import { ImageLarge } from './Components/ImageGalleryItem/ImageGalleryItem.styled';
 import './App.module.css';
 import PropTypes from 'prop-types';
 import imageAPI from './Service/getData';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { animateScroll as scroll } from 'react-scroll';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 class App extends Component {
 	state = {
@@ -14,6 +18,30 @@ class App extends Component {
 		pageNumber: 1,
 		isLoading: false,
 		imageName: '',
+		isModalOpen: false,
+		imageLarge: '',
+	};
+
+	modalStyles = {
+		content: {
+			padding: '0',
+			overflow: 'hidden',
+			width: '975px',
+			height: '660px',
+			top: '50%',
+			left: '50%',
+			right: 'auto',
+			bottom: 'auto',
+			marginRight: '-50%',
+			transform: 'translate(-50%, -50%)',
+		},
+	};
+
+	modalHandler = (image) => {
+		this.setState({
+			imageLarge: image,
+			isModalOpen: !this.state.isModalOpen,
+		});
 	};
 
 	getImage = (imageName) => {
@@ -61,10 +89,17 @@ class App extends Component {
 			<>
 				<SearchBar getImage={this.getImage} />
 				<ImageGallery
+					modal={this.modalHandler}
 					isLoading={this.state.isLoading}
 					images={this.state.images}
 					onClickMoreBtn={this.onClickLoadMoreButtton}
 				/>
+				<Modal
+					isOpen={this.state.isModalOpen}
+					onRequestClose={this.modalHandler}
+					style={this.modalStyles}>
+					<ImageLarge width='975' height='650' src={this.state.imageLarge} />
+				</Modal>
 				<ToastContainer />
 			</>
 		);
