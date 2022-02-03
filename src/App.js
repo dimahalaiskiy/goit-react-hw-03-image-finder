@@ -54,6 +54,13 @@ class App extends Component {
 		const prevImage = prevState.imageName;
 		const currentImage = this.state.imageName;
 
+		if (prevImage !== currentImage) {
+			this.setState({
+				pageNumber: 1,
+				images: [],
+			});
+		}
+
 		if (prevImage !== currentImage || prevState.pageNumber !== this.state.pageNumber) {
 			this.setState({
 				isLoading: true,
